@@ -1,4 +1,4 @@
-express = require 'express'
+express = require 'express.io'
 routes = require './routes'
 http = require 'http'
 path = require 'path'
@@ -19,8 +19,10 @@ app.use express.static(path.join(__dirname, 'public'))
 if 'development' == app.get('env')
   app.use express.errorHandler()
 
+app.http().io()
 
 app.get '/', routes.index
 
-http.createServer(app).listen app.get('port'), ->
-  console.log 'Express server listening on port ' + app.get('port')
+port = app.get 'port'
+app.listen port, ->
+  console.log "Flumen server listening on port #{port}"
