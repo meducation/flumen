@@ -1,33 +1,23 @@
 express = require 'express.io'
-routes = require './routes'
 http = require 'http'
 path = require 'path'
-sqs = require './lib/sqs'
+routes = require './routes'
+parser = require './lib/parser'
 
 app = express()
-
-app.set 'port', process.env.PORT || 3001
-app.set 'views', path.join(__dirname, 'views')
-app.set 'view engine', 'jade'
-app.use express.favicon()
-app.use express.logger('dev')
-app.use express.json()
-app.use express.urlencoded()
-app.use express.methodOverride()
-app.use app.router
-app.use express.static(path.join(__dirname, 'public'))
-
-if 'development' == app.get('env')
+app.configure ->
+  app.set 'port', process.env.PORT || 3001
+  # Use a raw body parser to handle SNS messages.
+  # They are received as plain/text.
+  app.use parser.rawBodyParser
+  app.use express.logger('dev')
   app.use express.errorHandler()
+  app.use express.methodOverride()
 
 app.http().io()
 
-app.get '/', routes.index
+app.post '/message', routes.message
 
 port = app.get 'port'
-
-
-
-app.listen port
-
-sqs.listen()
+app.listen port, ->
+  console.log "Flumen server listening on port #{port}"
