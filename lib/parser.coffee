@@ -1,3 +1,5 @@
+logger = require 'winston'
+
 exports.rawBodyParser = (request, response, next) ->
   request.rawBody = ''
   request.setEncoding 'utf8'
@@ -6,6 +8,6 @@ exports.rawBodyParser = (request, response, next) ->
     request.rawBody += chunk
 
   request.on 'end', ->
-    console.log "Received headers: #{JSON.stringify request.headers}"
-    console.log "Received raw body: #{request.rawBody}"
+    logger.info "Received headers: #{JSON.stringify request.headers}"
+    logger.info "Received raw body: #{request.rawBody}"
     next()

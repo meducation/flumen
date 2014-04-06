@@ -1,8 +1,15 @@
 express = require 'express.io'
 http = require 'http'
+fs = require 'fs'
 path = require 'path'
+logger = require 'winston'
 routes = require './routes'
 parser = require './lib/parser'
+
+fs.mkdir './log' unless fs.existsSync './log'
+logger.add logger.transports.File,
+  filename: './log/flumen.log'
+  handleExceptions: true
 
 app = express()
 app.configure ->
@@ -20,4 +27,4 @@ app.post '/message', routes.message
 
 port = app.get 'port'
 app.listen port, ->
-  console.log "Flumen server listening on port #{port}"
+  logger.info "Flumen server listening on port #{port}"
