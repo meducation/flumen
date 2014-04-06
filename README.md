@@ -27,3 +27,8 @@ Send a plain text POST to /message containing a valid SNS payload to test.
 To run the server that auto-restarts when changes are made, run:
 
     grunt server
+
+## Testing
+
+    npm install -g jasmine-node
+    grunt test

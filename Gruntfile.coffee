@@ -1,9 +1,13 @@
 module.exports = (grunt) ->
 
-  coffeeFiles = [
+  srcFiles = [
     'routes/**/*.coffee'
     'lib/**/*.coffee'
     'app.coffee'
+  ]
+
+  testFiles = [
+    'spec/**/*.coffee'
   ]
 
   grunt.initConfig
@@ -15,22 +19,30 @@ module.exports = (grunt) ->
           port: 3001
 
     coffeelint:
-      files: coffeeFiles
+      files: srcFiles
+      specs: testFiles
       gruntfile: ['Gruntfile.coffee']
+
+    jasmine_node:
+      options:
+        coffee: true
+        extensions: 'coffee',
+        specNameMatcher: 'spec',
+      all: ['spec/']
 
     watch:
       coffee:
         options:
           livereload: true
           nospawn: true
-        files: [coffeeFiles, ['test/coffee/**/*.coffee']]
-        tasks: ['express:dev', 'coffeelint:files']
+        files: [srcFiles, testFiles]
+        tasks: ['test']
     
   require('matchdep').filterDev('grunt-!(template)*').forEach grunt.loadNpmTasks
 
   grunt.registerTask 'server', 'Start a web server to host the app.',
     ['express:dev', 'watch']
 
-  grunt.registerTask 'test', ['coffeelint']
+  grunt.registerTask 'test', ['coffeelint', 'jasmine_node']
 
   grunt.registerTask 'default', 'Run for first time setup.', ['coffeelint']
