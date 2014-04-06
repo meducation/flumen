@@ -10,10 +10,20 @@ A node application that passes Meducation messages onto the website via web sock
 
 ## Per Installation
 
-    npm install
+    npm install --production
 
 # Usage
 
     npm start
 
 Send a plain text POST to /message containing a valid SNS payload to test.
+
+# Contributing
+
+    npm install -g grunt-cli
+    npm install
+    grunt
+
+To run the server that auto-restarts when changes are made, run:
+
+    grunt server
