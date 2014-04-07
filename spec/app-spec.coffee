@@ -19,7 +19,7 @@ describe 'Flumen', ->
 
       message =
         type: 'news_feed_item'
-        payload: newsFeedItem
+        payload: JSON.stringify(newsFeedItem)
 
       request
         .post('/')

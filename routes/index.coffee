@@ -5,9 +5,10 @@ module.exports = (socketIoApp) ->
   routes.index = (request, response) ->
     message = request.body
     logger.info "Received message: #{JSON.stringify message}"
+    parsedPayload = JSON.parse message.payload
     switch message.type
       when 'news_feed_item'
-        socketIoApp.sockets.emit 'news-feed-item', message.payload
+        socketIoApp.sockets.emit 'news-feed-item', parsedPayload
 
     response.send 200
 
