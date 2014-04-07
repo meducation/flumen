@@ -14,9 +14,10 @@ logger.add logger.transports.File,
 socketIoApp = io.listen 3005
 socketIoRoutes = routes socketIoApp
 
+port = process.env.PORT || 3004
 webApp = express()
 webApp.configure ->
-  webApp.set 'port', process.env.PORT || 3004
+  webApp.set 'port', port
   webApp.use express.logger 'dev'
   webApp.use express.bodyParser()
   webApp.use express.errorHandler()
@@ -24,6 +25,5 @@ webApp.configure ->
 
 webApp.post '/', socketIoRoutes.index
 
-port = webApp.get 'port'
 webApp.listen port, ->
   logger.info "Flumen server listening on port #{port}"
