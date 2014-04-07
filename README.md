@@ -16,7 +16,13 @@ A node application that passes Meducation messages onto the website via web sock
 
     npm start
 
-Send a plain text POST to / containing a valid JSON payload to test.
+Create and server a test client (see `test-client.html`).
+
+To test an incoming message POST:
+
+    ./bin/post-message
+
+In the browser developer console on the test client page, check for an incoming item.
 
 # Contributing
 
