@@ -16,7 +16,7 @@ A node application that passes Meducation messages onto the website via web sock
 
     npm start
 
-Send a plain text POST to /message containing a valid SNS payload to test.
+Send a plain text POST to / containing a valid JSON payload to test.
 
 # Contributing
 

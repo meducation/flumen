@@ -2,9 +2,9 @@ request = require 'supertest'
 
 describe 'Flumen', ->
   beforeEach ->
-    request = request 'http://localhost:3001'
+    request = request 'http://localhost:3004'
 
-  describe 'POSTing messages', ->
+  describe 'POSTing news feed items', ->
     it 'should respond successfully', (done) ->
       newsFeedItem =
         id: 1
@@ -17,11 +17,12 @@ describe 'Flumen', ->
         icon: "fa-play",
         created_at: "2013-04-06"
 
-      payload =
-        Message: JSON.stringify(newsFeedItem)
+      message =
+        type: 'news_feed_item'
+        payload: newsFeedItem
 
       request
-        .post('/message')
-        .set('Accept', 'text/plain')
-        .send(JSON.stringify(payload))
+        .post('/')
+        .set('Content-Type', 'application/json')
+        .send(message)
         .expect 200, done

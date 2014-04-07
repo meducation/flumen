@@ -1,6 +1,14 @@
-exports.message = (request, response) ->
-  json = JSON.parse request.rawBody
-  message = JSON.parse json.Message
+logger = require 'winston'
 
-  request.io.broadcast 'news-feed-item', message
-  response.send 200
+module.exports = (socketIoApp) ->
+  routes = {}
+  routes.index = (request, response) ->
+    message = request.body
+    logger.info "Received message: #{JSON.stringify message}"
+    switch message.type
+      when 'news_feed_item'
+        socketIoApp.sockets.emit 'news-feed-item', message.payload
+
+    response.send 200
+
+  routes
