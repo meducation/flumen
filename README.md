@@ -20,7 +20,7 @@ Create and server a test client (see `test-client.html`).
 
 To test an incoming message POST:
 
-    ./bin/post-message
+    coffee bin/post-message
 
 In the browser developer console on the test client page, check for an incoming item.
 
