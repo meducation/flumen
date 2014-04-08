@@ -22,6 +22,10 @@ webApp.configure ->
   webApp.use express.bodyParser()
   webApp.use express.errorHandler()
   webApp.use express.methodOverride()
+  webApp.set 'views', __dirname + '/views'
+
+webApp.get '/test', (request, response) ->
+  response.sendfile 'views/test-client.html'
 
 webApp.post '/', socketIoRoutes.index
 
