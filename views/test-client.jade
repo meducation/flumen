@@ -1,0 +1,13 @@
+html
+head
+    meta(charset='UTF-8')
+    title socket.io test/title
+body
+    h1 Socket IO Test Page
+    p Open the developer console
+script(src='#{host}/socket.io/socket.io.js')
+script.
+    var socket = io.connect('#{host}');
+    socket.on('news-feed-item', function (item) {
+        console.log(item);
+    });
