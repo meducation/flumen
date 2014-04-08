@@ -5,14 +5,17 @@ fs = require 'fs'
 path = require 'path'
 logger = require 'winston'
 routes = require './routes'
+testRoutes = require './routes/test'
 
 fs.mkdir './log' unless fs.existsSync './log'
 logger.add logger.transports.File,
   filename: './log/flumen.log'
   handleExceptions: true
 
-socketIoApp = io.listen 3005
+socketIoPort = 3005
+socketIoApp = io.listen socketIoPort
 socketIoRoutes = routes socketIoApp
+testClientRoute = testRoutes socketIoPort
 
 port = process.env.PORT || 3004
 webApp = express()
@@ -22,11 +25,10 @@ webApp.configure ->
   webApp.use express.bodyParser()
   webApp.use express.errorHandler()
   webApp.use express.methodOverride()
+  webApp.set 'view engine', 'jade'
   webApp.set 'views', __dirname + '/views'
 
-webApp.get '/test', (request, response) ->
-  response.sendfile 'views/test-client.html'
-
+webApp.get '/test', testClientRoute.testClient
 webApp.post '/', socketIoRoutes.index
 
 webApp.listen port, ->
