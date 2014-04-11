@@ -3,7 +3,11 @@ module.exports = (socketIoPort) ->
   routes.testClient = (request, response) ->
     protocol = request.protocol
     host = request.headers.host
-    hostname = if host.indexOf(':') == -1 then host else host[0..host.indexOf(':')-1]
-    response.render 'test-client', host: "#{protocol}://#{hostname}:#{socketIoPort}"
+    hostname = if host.indexOf(':') == -1
+      host
+    else
+      host[0..host.indexOf(':')-1]
+    response.render 'test-client',
+      host: "#{protocol}://#{hostname}:#{socketIoPort}"
 
   routes
