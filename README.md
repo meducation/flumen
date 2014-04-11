@@ -16,7 +16,7 @@ A node application that passes Meducation messages onto the website via web sock
 
     npm start
 
-Create and server a test client (see `test-client.html`).
+Navigate to `http://localhost:3004/test` and open the developer console.
 
 To test an incoming message POST:
 
@@ -24,17 +24,38 @@ To test an incoming message POST:
 
 In the browser developer console on the test client page, check for an incoming item.
 
-# Contributing
+# Is it any good?
 
-    npm install -g grunt-cli
-    npm install
-    grunt
+[Yes.](http://news.ycombinator.com/item?id=3067434)
 
-To run the server that auto-restarts when changes are made, run:
+## Contributing
 
-    grunt server
+Firstly, thank you!! :heart::sparkling_heart::heart:
 
-## Testing
+We'd love to have you involved. Please read our [contributing guide](https://github.com/meducation/flumen/tree/master/CONTRIBUTING.md) for information on how to get stuck in.
 
-    npm install -g jasmine-node
-    grunt test
+### Contributors
+
+This project is managed by the [Meducation team](http://company.meducation.net/about#team). 
+
+These individuals have come up with the ideas and written the code that made this possible:
+
+- [Ben Paddock](http://github.com/pads)
+- [Charles Care](https://github.com/ccare)
+
+## Licence
+
+Copyright (C) 2013 New Media Education Ltd
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+A copy of the GNU Affero General Public License is available in [Licence.md](https://github.com/meducation/propono/blob/master/LICENCE.md)
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
