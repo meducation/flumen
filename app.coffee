@@ -14,6 +14,11 @@ logger.add logger.transports.File,
 
 socketIoPort = 3005
 socketIoApp = io.listen socketIoPort
+socketIoApp.configure ->
+  socketIoApp.set 'browser client minification', true
+  socketIoApp.set 'browser client gzip', true
+  socketIoApp.set 'browser client etag', true
+
 socketIoRoutes = routes socketIoApp
 testClientRoute = testRoutes socketIoPort
 
