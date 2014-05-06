@@ -1,8 +1,9 @@
 request = require 'supertest'
+testRequest = null
 
 describe 'Flumen', ->
   beforeEach ->
-    request = request 'http://localhost:3004'
+    testRequest = request 'http://localhost:3004'
 
   describe 'POSTing news feed items', ->
     it 'should respond successfully', (done) ->
@@ -21,7 +22,26 @@ describe 'Flumen', ->
         type: 'news_feed_item'
         payload: JSON.stringify(newsFeedItem)
 
-      request
+      testRequest
+        .post('/')
+        .set('Content-Type', 'application/json')
+        .send(message)
+        .expect 200, done
+
+  describe 'POSTing notifications', ->
+    it 'should respond successfully', (done) ->
+      notification =
+        id: 1
+        user_id: 2
+        item_id: 3
+        item_type: 'MediaFile'
+        action: 'item_share_new'
+
+      message =
+        type: 'notification'
+        payload: JSON.stringify(notification)
+
+      testRequest
         .post('/')
         .set('Content-Type', 'application/json')
         .send(message)

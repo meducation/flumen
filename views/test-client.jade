@@ -12,4 +12,8 @@ script.
         console.log(item);
     });
 
+    socket.on('notification', function (notification) {
+      console.log(notification);
+    });
+
     socket.emit('handshake', {user_id: Math.floor(Math.random() * 4)});
