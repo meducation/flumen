@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/meducation/flumen.svg?branch=master)](https://travis-ci.org/meducation/flumen)
+
 # Flumen
 
 A node application that passes Meducation messages onto the website via web sockets.
