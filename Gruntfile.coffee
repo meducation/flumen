@@ -14,7 +14,7 @@ module.exports = (grunt) ->
     express:
       dev:
         options:
-          cmd: 'coffee'
+          opts: ['node_modules/coffee-script/bin/coffee']
           script: 'app.coffee'
           port: 3004
 
