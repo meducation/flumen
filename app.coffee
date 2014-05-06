@@ -22,6 +22,11 @@ socketIoApp.configure ->
 socketIoRoutes = routes socketIoApp
 testClientRoute = testRoutes socketIoPort
 
+socketIoApp.sockets.on 'connection', (socket) ->
+  socket.on 'handshake', (data) ->
+    socket.join data.user_id
+    logger.info "User #{data.user_id} on socket #{socket.id} joined room"
+
 port = process.env.PORT || 3004
 webApp = express()
 webApp.configure ->

@@ -11,3 +11,5 @@ script.
     socket.on('news-feed-item', function (item) {
         console.log(item);
     });
+
+    socket.emit('handshake', {user_id: Math.floor(Math.random() * 4)});
