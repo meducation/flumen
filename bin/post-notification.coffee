@@ -9,8 +9,14 @@ payload =
   item_type: 'MediaFile'
   action: 'item_share_new'
 
-message =
-  type: "notification"
+messageCreated =
+    type: 'notification'
+    action: 'created'
+    payload: JSON.stringify payload
+
+messageRead =
+  type: 'notification'
+  action: 'read'
   payload: JSON.stringify payload
 
 postOptions =
@@ -21,4 +27,5 @@ postOptions =
   headers:
     'Content-Type': 'application/json'
 
-request.post {url: 'http://localhost:3004/', json: message}
+request.post {url: 'http://localhost:3004/', json: messageCreated}
+request.post {url: 'http://localhost:3004/', json: messageRead}

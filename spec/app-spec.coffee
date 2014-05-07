@@ -39,6 +39,7 @@ describe 'Flumen', ->
 
       message =
         type: 'notification'
+        action: 'created'
         payload: JSON.stringify(notification)
 
       testRequest

@@ -12,7 +12,13 @@ script.
         console.log(item);
     });
 
-    socket.on('notification', function (notification) {
+    socket.on('notification-created', function (notification) {
+      console.log('created: ')
+      console.log(notification);
+    });
+
+    socket.on('notification-read', function (notification) {
+      console.log('read: ')
       console.log(notification);
     });
 
