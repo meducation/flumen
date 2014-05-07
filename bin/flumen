@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # SOURCE APP SPECIFIC ENV VARS
-[[ -e /etc/pinacothece/pinacothece-env ]] && source /etc/pinacothece/pinacothece-env 
+[[ -e /etc/flumen/flumen-env ]] && source /etc/flumen/flumen-env 
 
 # start the app
 npm start
