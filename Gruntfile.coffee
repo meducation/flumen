@@ -37,11 +37,15 @@ module.exports = (grunt) ->
           nospawn: true
         files: [srcFiles, testFiles]
         tasks: ['test']
+
+    env:
+      dev:
+        FLUMEN_SECRET: 'foobar'
     
   require('matchdep').filterDev('grunt-!(template)*').forEach grunt.loadNpmTasks
 
   grunt.registerTask 'server', 'Start a web server to host the app.',
-    ['express:dev', 'watch']
+    ['env', 'express:dev', 'watch']
 
   grunt.registerTask 'test', ['coffeelint', 'jasmine_node']
 
