@@ -15,7 +15,9 @@ logger.add logger.transports.File,
   handleExceptions: true
 
 secret = process.env.FLUMEN_SECRET || ''
-logger.warn 'No secret found' unless secret
+unless secret
+  logger.error 'No secret found, stopping...'
+  process.exit 1
 
 socketIoPort = 3005
 socketIoApp = io.listen socketIoPort
