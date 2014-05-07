@@ -4,6 +4,8 @@ http = require 'http'
 fs = require 'fs'
 path = require 'path'
 logger = require 'winston'
+sha1 = require 'sha1'
+hashValidator = require './lib/hash-validator'
 routes = require './routes'
 testRoutes = require './routes/test'
 
@@ -11,6 +13,9 @@ fs.mkdir './log' unless fs.existsSync './log'
 logger.add logger.transports.File,
   filename: './log/flumen.log'
   handleExceptions: true
+
+secret = process.env.FLUMEN_SECRET || ''
+logger.warn 'No secret found' unless secret
 
 socketIoPort = 3005
 socketIoApp = io.listen socketIoPort
@@ -24,8 +29,11 @@ testClientRoute = testRoutes socketIoPort
 
 socketIoApp.sockets.on 'connection', (socket) ->
   socket.on 'handshake', (data) ->
-    socket.join data.user_id
-    logger.info "User #{data.user_id} on socket #{socket.id} joined room"
+    if hashValidator.hashIsValid secret, data
+      socket.join data.user_id
+      logger.info "User #{data.user_id} on socket #{socket.id} joined room"
+    else
+      logger.warn "User #{data.user_id} hashes did not match, not joining room"
 
 port = process.env.PORT || 3004
 webApp = express()

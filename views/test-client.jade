@@ -5,21 +5,42 @@ head
 body
     h1 Socket IO Test Page
     p Open the developer console
+    input#user-id(placeholder='User ID')
+    input#user-hash(placeholder='User hash')
+    button#handshake Handshake
+
+    h2 Output
+    p Action:
+    p#action
+    p Payload:
+    pre#payload
+
 script(src='#{host}/socket.io/socket.io.js')
 script.
     var socket = io.connect('#{host}');
+    var actionElement = document.getElementById('action');
+    var payloadElement = document.getElementById('payload');
+
     socket.on('news-feed-item', function (item) {
+        payloadElement.innerText = JSON.stringify(item);
         console.log(item);
     });
 
     socket.on('notification-created', function (notification) {
-      console.log('created: ')
+      actionElement.innerText = 'notification created';
+      payloadElement.innerText = JSON.stringify(notification);
       console.log(notification);
     });
 
     socket.on('notification-read', function (notification) {
-      console.log('read: ')
+      actionElement.innerText = 'notification read';
+      payloadElement.innerText = JSON.stringify(notification);
       console.log(notification);
     });
 
-    socket.emit('handshake', {user_id: Math.floor(Math.random() * 4)});
+    document.getElementById('handshake').onclick = function () {
+      socket.emit('handshake', {
+        user_id: document.getElementById('user-id').value,
+        user_hash: document.getElementById('user-hash').value
+      });
+    };

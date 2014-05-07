@@ -14,15 +14,34 @@ A node application that passes Meducation messages onto the website via web sock
 
 # Usage
 
+Before starting Flumen, export a secret e.g:
+
+    export FLUMEN_SECRET=foobar
+
+This is used for personal messages as part of a SHA1 hash.
+The client must be able to provide the same hash in order to receive personal messages.
+These messages are sent via rooms, keyed by user ID (which the client must also send).
+
+Then start Flumen:
+
     npm start
 
 Navigate to `http://localhost:3004/test` and open the developer console.
 
 To test an incoming message POST:
 
-    coffee bin/post-message
+    coffee bin/post-news-feed-item.coffee
 
-In the browser developer console on the test client page, check for an incoming item.
+In the browser test client, check the page for the message (it's also available in the console).
+
+## Personal Messages
+
+In the browser test client, enter a user ID and the hash and click 'handshake'.
+Then send a personal message:
+
+    coffee bin/post-notification.coffee
+
+If allowed, the test client will receive the message both in the page and the console.
 
 # Is it any good?
 
