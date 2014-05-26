@@ -47,3 +47,22 @@ describe 'Flumen', ->
         .set('Content-Type', 'application/json')
         .send(message)
         .expect 200, done
+
+  describe 'POSTing user inbox messages', ->
+    it 'should respond successfully', (done) ->
+      user_inbox_message =
+        id: 1
+        thread_id: 2
+        from_id: 3
+        parsed_content: 'Foobar'
+
+      message =
+        type: 'message'
+        action: 'created'
+        payload: JSON.stringify(user_inbox_message)
+
+      testRequest
+      .post('/')
+      .set('Content-Type', 'application/json')
+      .send(message)
+      .expect 200, done

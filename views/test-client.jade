@@ -38,6 +38,24 @@ script.
       console.log(notification);
     });
 
+    socket.on('message-created', function (message) {
+      actionElement.innerText = 'message created';
+      payloadElement.innerText = JSON.stringify(message);
+      console.log(message);
+    });
+
+    socket.on('message-read', function (message) {
+      actionElement.innerText = 'message read';
+      payloadElement.innerText = JSON.stringify(message);
+      console.log(message);
+    });
+
+    socket.on('message-unread', function (message) {
+      actionElement.innerText = 'message unread';
+      payloadElement.innerText = JSON.stringify(message);
+      console.log(message);
+    });
+
     document.getElementById('handshake').onclick = function () {
       socket.emit('handshake', {
         user_id: document.getElementById('user-id').value,

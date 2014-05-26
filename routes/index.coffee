@@ -9,10 +9,10 @@ module.exports = (socketIoApp) ->
     switch message.type
       when 'news_feed_item'
         socketIoApp.sockets.emit 'news-feed-item', parsedPayload
-      when 'notification'
+      when 'notification', 'message'
         userId = parsedPayload.user_id
         socketIoApp.sockets.in(userId)
-          .emit "notification-#{message.action}", parsedPayload
+          .emit "#{message.type}-#{message.action}", parsedPayload
 
     response.send 200
 
